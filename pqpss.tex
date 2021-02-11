@@ -29,6 +29,10 @@
 
 \newtheorem{corollary}[theorem]{Corollary}
 
+\author{Djiby Sow, \ Demba Sow, \ Mouhamed Lamine Mbaye\\
+\small{$sowdjiba@yahoo.fr^1$,  $sowdembis@yahoo.fr^2$,  $lamine0093@gmail.com^3$}\\
+Faculty of Science and Technology, Mathematics and Computer Science Department, Cheikh Anta Diop University, Dakar, Senegal}
+
 \begin{document}
 \title{The post-quantum Probabilistic Signature Scheme}
 \maketitle
@@ -185,7 +189,7 @@ problem, if in at most $\tau_{\mathcal{R}}$ operations, $Pr \lbrace (n,e) \lefta
 %=============================================================================
 
 In this section,  we propose a new signature called pqPSS which is a variant of PSS-R. Under RSA
-assumption, our scheme is proven EUF-BR-CMA secure in the random oracle model. The main idea is to generate a random exponent for each signature.
+assumption, our scheme is proven EUF-BR-CMA secure in the random oracle model. A random salt is used to generate the RSA exponentiation for each signature process.
 
 %=============================================================================
 \subsection{Signature process}\label{sec:two:1}
@@ -268,14 +272,14 @@ Hence, this comparison shows that pqPSS is more secure than PSS-R.
 
 \item \underline{Bandwidth}: In PSS-R (PSS with message recovery) the goal is to save bandwidth such that the message is recoverable from the signature; hence it is not necessary to send the message separately.
 
-pqPSS is also a signature with a message recovery, but the signature outputs $(r,\sigma)$ instead of $(m,\sigma)$ as in PSS. Nevertheless it is better to output $(r,\sigma)$ than $(m,\sigma)$, because in general $|m|\gg |r|$
+pqPSS is also a signature with a message recovery, but the signature outputs $(r,\sigma)$ instead of $(m,\sigma)$ as in PSS. Nevertheless it is better to output $(r,\sigma)$ than $(m,\sigma)$, because in general $|m|\gg |r|$.
 
 
-\item \underline{Message recovery}: In PSS-R, the random salt $r$ and the message $m$ are embedded in the signature process via $r^*=g_1(w)\oplus r$ and $m^*=g_2(w)\oplus m$ where $g_1 $ is a function which on input $w\in\{0,1\}^{k_w}$ outputs a string of length $k_r$ and $g_2$ is a function which on input $w\in\{0,1\}^{k_w}$ outputs a string of length $k-k_r-k_w-1$. We have also $\sigma^e\mod n=0||w||r^*||m^*$. Hence if one fixes the size of $n$, $\omega$ and $m^*$, it is not possible to increase the size of $m$ without decreasing those of $r$.
+\item \underline{Message recovery}: In PSS-R, the random salt $r$ and the message $m$ are embedded in the signature process via $r^*=g_1(w)\oplus r$ and $m^*=g_2(w)\oplus m$ where $g_1 $ is a function which on input $w\in\{0,1\}^{k_w}$ outputs a string of length $k_r$ and $g_2$ is a function which on input $w\in\{0,1\}^{k_w}$ outputs a string of length $k-k_r-k_w-1$. We have also $\sigma^e\mod n=0||w||r^*||m^*$. Hence, if one fixes the size of $n$, $\omega$ and $m^*$, it is not possible to increase the size of $m$ without decreasing those of $r$.
 
 By comparison with pqPSS, we have the following.
 
-The random salt $r$ and the message $m$ are embedded in two different boxes, namely, $r$ is embedded in $w$ and $m$ is embedded in $m^*$ via $w=(0^{\ell}||r)\oplus H(m||e)$  and $m^*=m\oplus G(e||w)$, where $\sigma^{e}\mod n=0||w||m^*$. Hence if one fixes the size of $n$, $w$ and $m^*$, it is  possible to increase the size of $r$ without changing the size of $m$.%, namely we have $|m|=|m^*|+1$ and $4\leq|r|\leq |\omega|-1$.
+The random salt $r$ and the message $m$ are embedded in two different boxes, namely, $r$ is embedded in $w$  via $w=(0^{\ell}||r)\oplus H(m||e)$ and $m$ is embedded in $m^*$  via $m^*=m\oplus G(e||w)$, and we have also $\sigma^{e}\mod n=0||w||m^*$. Hence if one fixes the size of $n$, $w$ and $m^*$, it is  possible to increase the size of $r$ without changing the size of $m$.%, namely we have $|m|=|m^*|+1$ and $4\leq|r|\leq |\omega|-1$.
 
 \end{enumerate}
 
@@ -285,8 +289,8 @@ The random salt $r$ and the message $m$ are embedded in two different boxes, nam
 Our reduction $\mathcal{R}$ behaves as follows:
  \begin{enumerate}
   \item  $\mathcal{R}$ is given ($n \leftarrow RSA(1^{k}$ ), generates at random $v \leftarrow [0, n-1]\cap \mathbb{N}_{odd}$  and $y
-      \leftarrow \frac{\mathbb{Z}}{n\mathbb{Z}}^{*}$, as well as an attacker $\mathcal{A}$ that    $(q_{T}, q_{H}, q_{G}, q_{T}, q_{sig},
-      \tau_{\mathcal{A}}, \varepsilon_{\mathcal{A}} )$-solves  EUF-BR- CMA(pqPSS);
+      \leftarrow \frac{\mathbb{Z}}{n\mathbb{Z}}^{*}$, as well as an attacker $\mathcal{A}$ that    $(q_{T}, q_{H}, q_{G}, q_{sig},
+      \tau_{\mathcal{A}}, \varepsilon_{\mathcal{A}} )$-solves  EUF-BR- CMA (pqPSS);
  \item    $\mathcal{R}$ simulates $G_{key}$ and transmits some public key $pk=n$ to  $\mathcal{A}$;
 \item     $\mathcal{R}$ receives queries for $T$ from  $\mathcal{A}$: it will have to simulate $T$ at most $q_{T}$ times;
 \item     $\mathcal{R}$ receives queries for $G$ from  $\mathcal{A}$: it will have to simulate $G$ at most $q_{G}$ times;
